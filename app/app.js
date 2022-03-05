@@ -2,7 +2,7 @@ var express = require('express');
 var app = express();
 
 var sqlite3 = require('sqlite3').verbose();
-var db = new sqlite3.Database('weblinksDB');
+var db = new sqlite3.Database('./app/weblinksDB');
 
 var multer = require('multer');
 var upload = multer();
@@ -197,7 +197,7 @@ app.post('/weblink', upload.array(), function (req, res, next) {
         url, rating,
         function (error) {
             if (error) {
-                console.err(error);
+                console.log(error);
                 res.status(500); //error
             } else {
                 res.status(201); //created 
@@ -294,5 +294,6 @@ app.use(function (req, res, next) {
 });
 
 
-app.listen(3000);
+// app.listen(3000);
+module.exports = app; // exporting for supertest
 console.log("Up and running..");
